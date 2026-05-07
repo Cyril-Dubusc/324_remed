@@ -1,11 +1,13 @@
 name: CI
 
+# Le workflow s'exécute sur les pushes et les pull requests des branches principales.
 on:
   push:
     branches: [main, develop]
   pull_request:
     branches: [main, develop]
 
+# Un seul run par branche est conservé pour éviter les exécutions redondantes.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -17,12 +19,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Installe la bonne version de Node.js avec le cache npm activé.
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
 
+      # Reutilise le cache ESLint pour accélérer les exécutions suivantes.
       - name: Restore ESLint cache
         uses: actions/cache@v4
         with:
@@ -31,17 +35,22 @@ jobs:
           restore-keys: |
             eslint-${{ runner.os }}-
 
+      # Installation reproductible a partir du lockfile.
       - name: Install dependencies
         run: npm ci
 
+      # Verifie les vulnérabilites connues dans les dépendances.
       - name: Security audit
         run: npm audit --audit-level=moderate
 
+      # Lance ESLint sur tout le projet.
       - name: Run ESLint
         run: npm run lint
 
+      # Controle que le code respecte le format attendu par Prettier.
       - name: Check formatting
         run: npm run format:check
 
+      # Valide que le serveur démarre sans erreur de runtime.
       - name: Verify application starts
         run: timeout 5 node server.js || true
