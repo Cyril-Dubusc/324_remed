@@ -14,22 +14,22 @@ let tasks = [
     title: "Planifier la semaine",
     description: "Lister les priorites des prochains jours.",
     completed: false,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   },
   {
     id: 2,
     title: "Preparer la reunion",
     description: "Rassembler les points a partager avec l'equipe.",
     completed: true,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   },
   {
     id: 3,
     title: "Faire une pause",
     description: "Penser a souffler entre deux taches importantes.",
     completed: false,
-    createdAt: new Date().toISOString()
-  }
+    createdAt: new Date().toISOString(),
+  },
 ];
 
 app.get("/api/tasks", (_req, res) => {
@@ -51,7 +51,7 @@ app.post("/api/tasks", (req, res) => {
     title,
     description,
     completed: false,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   };
 
   tasks.push(task);
@@ -69,7 +69,9 @@ app.patch("/api/tasks/:id", (req, res) => {
   if (typeof req.body.title === "string") {
     const title = req.body.title.trim();
     if (!title) {
-      return res.status(400).json({ message: "Le titre ne peut pas etre vide." });
+      return res
+        .status(400)
+        .json({ message: "Le titre ne peut pas etre vide." });
     }
     task.title = title;
   }

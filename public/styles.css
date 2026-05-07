@@ -30,8 +30,16 @@ body {
   font-family: "Manrope", sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at top left, rgba(192, 95, 45, 0.22), transparent 28%),
-    radial-gradient(circle at top right, rgba(45, 122, 87, 0.18), transparent 24%),
+    radial-gradient(
+      circle at top left,
+      rgba(192, 95, 45, 0.22),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(45, 122, 87, 0.18),
+      transparent 24%
+    ),
     linear-gradient(180deg, #f8f4ed 0%, var(--bg) 100%);
 }
 
@@ -158,7 +166,10 @@ textarea {
   background: rgba(255, 255, 255, 0.72);
   color: var(--text);
   outline: none;
-  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .task-form input:focus,
@@ -178,7 +189,10 @@ textarea {
   border: none;
   border-radius: 999px;
   cursor: pointer;
-  transition: transform 160ms ease, opacity 160ms ease, background-color 160ms ease;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease,
+    background-color 160ms ease;
 }
 
 .task-form button {

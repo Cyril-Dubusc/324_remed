@@ -17,7 +17,7 @@ export default defineConfig([
       "no-unused-vars": "warn",
       "no-console": "off",
       "prefer-const": "warn",
-      "eqeqeq": ["error", "always"],
+      eqeqeq: ["error", "always"],
       "no-underscore-dangle": ["error", { allow: ["_id", "__dirname"] }],
     },
   },

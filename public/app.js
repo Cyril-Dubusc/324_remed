@@ -10,9 +10,9 @@ let tasks = [];
 async function request(url, options = {}) {
   const response = await fetch(url, {
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    ...options
+    ...options,
   });
 
   if (!response.ok) {
@@ -48,7 +48,9 @@ function setFeedback(message, type = "") {
 
 function updateStats() {
   totalTasks.textContent = String(tasks.length);
-  completedTasks.textContent = String(tasks.filter((task) => task.completed).length);
+  completedTasks.textContent = String(
+    tasks.filter((task) => task.completed).length,
+  );
 }
 
 function renderTasks() {
@@ -110,13 +112,13 @@ async function createTask(event) {
   const formData = new FormData(taskForm);
   const payload = {
     title: String(formData.get("title") || "").trim(),
-    description: String(formData.get("description") || "").trim()
+    description: String(formData.get("description") || "").trim(),
   };
 
   try {
     const task = await request("/api/tasks", {
       method: "POST",
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
 
     tasks = [task, ...tasks];
@@ -132,7 +134,7 @@ async function toggleTask(id, completed) {
   try {
     const updatedTask = await request(`/api/tasks/${id}`, {
       method: "PATCH",
-      body: JSON.stringify({ completed })
+      body: JSON.stringify({ completed }),
     });
 
     tasks = tasks.map((task) => (task.id === id ? updatedTask : task));
@@ -147,7 +149,7 @@ async function toggleTask(id, completed) {
 async function deleteTask(id) {
   try {
     await request(`/api/tasks/${id}`, {
-      method: "DELETE"
+      method: "DELETE",
     });
 
     tasks = tasks.filter((task) => task.id !== id);
